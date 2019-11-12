@@ -1,16 +1,13 @@
 var mongoose = require('mongoose');
 
 var User = mongoose.model('User',{
-    uid: {
-        type: Number,
-        required: true,
-        trim: true
-    },
     username: {
         type: String,
         minlength: 1,
         default: "User",
-        required: true
+        required: true,
+        trim: true,
+        unique: true
     },
     password: {
         type: String,

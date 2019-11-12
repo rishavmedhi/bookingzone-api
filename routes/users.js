@@ -17,4 +17,21 @@ router.get('/all-users/', function(req,res,next){
     })
 });
 
+router.post('/save/', function(req,res){
+   let new_user = new User(
+       {
+           username: req.body.username,
+           password: req.body.password,
+           house_no: req.body.house_no,
+           name: req.body.name,
+           status: req.body.status
+       }
+   );
+   new_user.save().then(()=>{
+       res.send("User created successfully");
+   }, (e) => {
+       res.status(400).send(e);
+   });
+});
+
 module.exports = router;
