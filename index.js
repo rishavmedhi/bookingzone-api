@@ -36,27 +36,32 @@ var User = mongoose.model('User',{
 
 });
 
-const new_user = new User({
-    uid: 1,
-    username: "admin",
-    password: 1,
-    house_no: 304,
-    name: "Admin",
-    status: 1
-});
+// const new_user = new User({
+//     uid: 1,
+//     username: "admin",
+//     password: 1,
+//     house_no: 304,
+//     name: "Admin",
+//     status: 1
+// });
 
-async function saveUser() {
-    const new_user = new User({
-        uid: 1,
-        username: "admin",
-        password: "hello123",
-        house_no: 304,
-        name: "Admin",
-        status: 1
-    });
+// async function to save user details
+// async function saveUser() {
+//     const new_user = new User({
+//         uid: 1,
+//         username: "admin",
+//         password: "hello123",
+//         house_no: 304,
+//         name: "Admin",
+//         status: 1
+//     });
+//
+//     const result = await new_user.save();
+//     console.log(result);
+// }
+//
+// saveUser();
 
-    const result = await new_user.save();
-    console.log(result);
-}
-
-saveUser();
+// find query - the collection name becomes lowercase inside mongodb
+const users = User.find();
+console.log(users);
