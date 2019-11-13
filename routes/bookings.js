@@ -67,4 +67,17 @@ router.delete('/cancel/', function(req,res) {
     });
 });
 
+/* listing all bookings for a user */
+router.post('/user/', (req,res) => {
+   let uid = req.body.uid;
+   uid = mongoose.Types.ObjectId(uid);
+   Bookings.find({
+       uid : uid
+   }).then((bookings) => {
+        res.send(bookings);
+   }, (e) => {
+       res.status(400).send(e);
+   });
+});
+
 module.exports = router;
