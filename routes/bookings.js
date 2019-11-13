@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var {mongoose} = require('../db/mongoose');
 var {Bookings} = require('../model/bookings');
 
 
 /* fetching login data */
-router.post('/new/', function(req,res,next){
+router.post('/new/', function(req,res){
 
     let starttime = req.body.starttime;
     let endtime = req.body.endtime;
@@ -14,9 +13,9 @@ router.post('/new/', function(req,res,next){
     Bookings.find({
         event : event,
         status : 1,
-        $and : [
-            {$or : [{starttime : {$gt : starttime, $lt : endtime}, endtime: {$gt : starttime, $lt : endtime}}] },
-            {$and : [{starttime : {$lt : starttime}},{endtime : {$gt : endtime}}]}
+        $or : [
+            {$or : [{starttime : {$gte : starttime, $lte : endtime}, endtime: {$gte : starttime, $lte : endtime}}] },
+            {$and : [{starttime : {$lte : starttime}},{endtime : {$gte : endtime}}]}
         ]}).then((booking)=>{
             if(booking.length===0)
             {
@@ -26,7 +25,7 @@ router.post('/new/', function(req,res,next){
                     endtime: req.body.endtime,
                     event: req.body.event,
                     period: req.body.period,
-                    status: requ.body.status
+                    status: req.body.status
                 });
                 new_booking.save().then(() => {
                     res.send("Booking successfully created")
