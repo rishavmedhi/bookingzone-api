@@ -47,10 +47,7 @@ router.post('/new/', function(req,res){
 /* cancelling a booking */
 router.delete('/cancel/', function(req,res) {
     let booking_id = req.body.booking_id;
-    console.log(booking_id);
-    // console.log(mongoose.Types.ObjectId(booking_id));
     booking_id = mongoose.Types.ObjectId(booking_id);
-    console.log(typeof booking_id);
     Bookings.find({
         _id: booking_id
     }).then(() => {
