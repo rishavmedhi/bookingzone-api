@@ -51,47 +51,23 @@ router.delete('/cancel/', function(req,res) {
     // console.log(mongoose.Types.ObjectId(booking_id));
     booking_id = mongoose.Types.ObjectId(booking_id);
     console.log(typeof booking_id);
-
-    // let booking =  Bookings.find({
-    //     _id: booking_id});
     Bookings.find({
         _id: booking_id
-    }).then((booking) => {
-        // booking.status = 0;
+    }).then(() => {
         Bookings.update({
             _id: booking_id
         }, {
             $set: {
-                status: 1
+                status: 0
             }
         }).then(() => {
             res.send("Booking has been cancelled");
-        }), (e2) => {
+        },(e2) => {
             res.status(400).send(e2);
-        }
+        })
     },(e) => {
         res.status(400).send(e);
     });
-    //     .then((booking) => {
-    //     if(booking.length===0)
-    //         res.send("Booking not found");
-    //     booking.status = 0;
-    //     booking.save().then(() => {
-    //         res.send("Booking has been cancelled");
-    //     })
-    // }, (e) => {
-    //     res.status(400).send(e);
-    // ;
-    // console.log(booking);
-    // if(booking.length===0)
-    //     res.send("Booking not found");
-
-    // booking.status = 0;
-    // booking.save().then(() => {
-    //     res.send("Booking has been cancelled");
-    // }, (e) => {
-    //     res.status(400).send(e);
-    // });
 });
 
 module.exports = router;
