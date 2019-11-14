@@ -15,7 +15,7 @@ router.post('/', function(req,res,next){
         password: password
     })
     .then((user)=>{
-        res.send(user);
+        res.send({'status':1,'user':user});
     }, (e) => {
         res.status(400).send(e);
     })
