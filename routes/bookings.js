@@ -79,7 +79,10 @@ router.post('/user/', (req,res) => {
    Bookings.find({
        uid : uid
    }).then((bookings) => {
-        res.send(bookings);
+        res.send({
+            'status':1,
+            'bookings':bookings
+        });
    }, (e) => {
        res.status(400).send(e);
    });
