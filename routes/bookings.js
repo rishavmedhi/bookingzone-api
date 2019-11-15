@@ -27,7 +27,7 @@ router.post('/new/', function(req,res){
                     endtime: req.body.endtime,
                     event: req.body.event,
                     period: req.body.period,
-                    status: req.body.status
+                    status: 1
                 });
                 new_booking.save().then(() => {
                     res.send("Booking successfully created")
