@@ -30,14 +30,19 @@ router.post('/new/', function(req,res){
                     status: 1
                 });
                 new_booking.save().then(() => {
-                    res.send("Booking successfully created")
+                    res.send({
+                        'status':1,
+                        'msg':"Booking successfully created"})
                 }, (e) => {
                     res.status(400).send(e);
                 })
             }
             else
             {
-                res.send("Booking failed. Slot you have selected is already booked");
+                res.send({
+                    status: 0,
+                    msg:"Booking failed. Slot you have selected is already booked"
+                });
             }
         }, (e) => {
             res.status(400).send(e);
