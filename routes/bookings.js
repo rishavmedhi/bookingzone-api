@@ -74,12 +74,13 @@ router.post('/cancel/', function(req,res) {
     });
 });
 
-/* listing all bookings for a user */
+/* listing all active bookings for a user */
 router.post('/user/', (req,res) => {
    let uid = req.body.uid;
    uid = mongoose.Types.ObjectId(uid);
    Bookings.find({
-       uid : uid
+       uid : uid,
+       status: 1
    }).then((bookings) => {
         res.send({
             'status':1,
