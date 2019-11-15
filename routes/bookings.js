@@ -50,7 +50,7 @@ router.post('/new/', function(req,res){
 });
 
 /* cancelling a booking */
-router.delete('/cancel/', function(req,res) {
+router.post('/cancel/', function(req,res) {
     let booking_id = req.body.booking_id;
     booking_id = mongoose.Types.ObjectId(booking_id);
     Bookings.find({
@@ -63,7 +63,9 @@ router.delete('/cancel/', function(req,res) {
                 status: 0
             }
         }).then(() => {
-            res.send("Booking has been cancelled");
+            res.send({
+                status: 1,
+                msg:"Your Booking has been cancelled"});
         },(e2) => {
             res.status(400).send(e2);
         })
