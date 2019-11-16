@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // var indexRouter = require('./routes/index');
@@ -24,7 +23,7 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Accept');
   next();
 });
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/*', function (req, res) {
