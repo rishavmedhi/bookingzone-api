@@ -18,20 +18,26 @@ router.get('/all-users/', function(req,res,next){
 });
 
 router.post('/save/', function(req,res){
-   let new_user = new User(
+   let req_params = req.body;
+
+   if(typeof req_params.username!=="undefined" && req_params.username.length>0 && typeof req_params.password!=="undefined" && req_params.password.length>0  && typeof req_params.name!=="undefined" && req_params.name.length>0 )
+   {
+       let new_user = new User(
        {
            username: req.body.username,
            password: req.body.password,
-           house_no: req.body.house_no,
            name: req.body.name,
-           status: req.body.status
+           status: 1
        }
-   );
-   new_user.save().then(()=>{
-       res.send("User created successfully");
-   }, (e) => {
-       res.status(400).send(e);
-   });
+       );
+       new_user.save().then(()=>{
+           res.send("User created successfully");
+       }, (e) => {
+           res.status(500).send(e);
+       });
+   }
+   else
+       res.status(400).send('Invalid parameters sent');
 });
 
 module.exports = router;
