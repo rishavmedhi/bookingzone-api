@@ -31,9 +31,9 @@ app.get('/*', function (req, res) {
 });
 
 // app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/bookings', bookingRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/bookings', bookingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
