@@ -15,8 +15,7 @@ var User = mongoose.model('User',{
         minlength: 8
     },
     house_no:{
-        type: String,
-        required: true,
+        type: String
     },
     name:{
         type: String,
