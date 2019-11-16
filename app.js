@@ -27,6 +27,10 @@ app.use(function (req, res, next) {
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
