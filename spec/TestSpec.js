@@ -1,19 +1,13 @@
 const request = require('request');
 
-var base_url = "http://localhost:3000/";
+// var base_url = "http://localhost:3000/";
+var base_url = "https://bookingzone.herokuapp.com/api/";
 
 describe("Booking Zone Server", function() {
     describe("POST Login /", function() {
          it("Testing Login function when empty ",   function(done){
-
-
-            // request.post(base_url+"login/", function(error, response, body) {
-            //     expect(response.statusCode).toBe(400);
-            //     done();
-            // });
-
              let request_params = {
-                 username : 'admin',
+                 username : 'rishavmedhi',
                  password : 'hello123'
              };
              const requestOptions = {
@@ -26,22 +20,6 @@ describe("Booking Zone Server", function() {
                  expect(response.body.status).toBe(1);
                  done();
              })
-             // console.log(typeof response.status);
-
-
-
-
-            // request.post(base_url+"login/", function(error, response, body) {
-            //
-            // }).then(() => {
-            //     expect(response.statusCode).toBe(400);
-            //     done();
-            // });
-
-            // request.post(base_url+"login/", await function(error, response, body) {
-            //     expect(response.statusCode).toBe(400);
-            //     // done();
-            // });
 
         });
 
