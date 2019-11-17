@@ -14,14 +14,26 @@ router.post('/new/', function(req,res){
         let starttime = req_params.starttime;
         let endtime = req_params.endtime;
         let event = req_params.event;
+        // console.log({ event: event,
+        //     status: 1,
+        //     $or: [
+        //         {$or: [{starttime: {$gte: starttime, $lte: endtime}, endtime: {$gte: starttime, $lte: endtime}}]},
+        //         {$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]}
+        //     ]});
+        //
+        // console.log({starttime: {$gte: starttime, $lte: endtime}});
+        // console.log({endtime: {$gte: starttime, $lte: endtime}});
+        // console.log({$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]});
         Bookings.find({
             event: event,
             status: 1,
             $or: [
-                {$or: [{starttime: {$gte: starttime, $lte: endtime}, endtime: {$gte: starttime, $lte: endtime}}]},
+                {$or: [{starttime: {$gte: starttime, $lt: endtime}}, {endtime: {$gt: starttime, $lte: endtime}}]},
                 {$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]}
             ]
         }).then((booking) => {
+            console.log(booking);
+            console.log(booking.length);
             if (booking.length === 0) {
                 let new_booking = new Bookings({
                     uid: req_params.uid,
@@ -94,7 +106,7 @@ router.post('/user/', (req,res) => {
            uid : uid,
            status: 1
        }).sort({
-               starttime: -1
+               starttime: 1
            }).then((bookings) => {
             res.send({
                 'status':1,
