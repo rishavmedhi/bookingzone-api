@@ -93,7 +93,9 @@ router.post('/user/', (req,res) => {
        Bookings.find({
            uid : uid,
            status: 1
-       }).then((bookings) => {
+       }).sort({
+               starttime: -1
+           }).then((bookings) => {
             res.send({
                 'status':1,
                 'bookings':bookings
