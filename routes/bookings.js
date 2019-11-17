@@ -9,21 +9,11 @@ const {ObjectID} = require('mongodb').ObjectID;
 /* making a new booking if selected slot is free */
 router.post('/new/', function(req,res){
     let req_params = req.body;
-    if(typeof req_params.starttime!=="undefined" && req_params.starttime>0 && typeof req_params.endtime!=="undefined" && req_params.endtime>0 && typeof req_params.event!=="undefined" && req_params.event.length>0 && typeof req_params.period!=="undefined" && req_params.period.length>0 && typeof req_params.uid!=="undefined" && req_params.uid.length>0) {
+    if(typeof req_params.starttime!=="undefined" && req_params.starttime>0 && typeof req_params.endtime!=="undefined" && req_params.endtime>0 && typeof req_params.event!=="undefined" && req_params.event.length>0 && typeof req_params.period!=="undefined" && req_params.period.length>0 && typeof req_params.uid!=="undefined" && req_params.uid.length>0 && req_params.starttime!==req_params.endtime) {
 
         let starttime = req_params.starttime;
         let endtime = req_params.endtime;
         let event = req_params.event;
-        // console.log({ event: event,
-        //     status: 1,
-        //     $or: [
-        //         {$or: [{starttime: {$gte: starttime, $lte: endtime}, endtime: {$gte: starttime, $lte: endtime}}]},
-        //         {$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]}
-        //     ]});
-        //
-        // console.log({starttime: {$gte: starttime, $lte: endtime}});
-        // console.log({endtime: {$gte: starttime, $lte: endtime}});
-        // console.log({$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]});
         Bookings.find({
             event: event,
             status: 1,
@@ -32,8 +22,6 @@ router.post('/new/', function(req,res){
                 {$and: [{starttime: {$lte: starttime}}, {endtime: {$gte: endtime}}]}
             ]
         }).then((booking) => {
-            console.log(booking);
-            console.log(booking.length);
             if (booking.length === 0) {
                 let new_booking = new Bookings({
                     uid: req_params.uid,
